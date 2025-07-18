@@ -60,15 +60,9 @@ A responsive React website for the Axora meditation app, featuring light/dark mo
 
 ## Deployment
 
-This site is configured for easy deployment on both Netlify and Vercel.
+This site is configured for easy deployment on Netlify.
 
-### Deploy to Netlify
-
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/rehan5039/Axora-landing-page)
-
-### Deploy to Vercel
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/rehan5039/Axora-landing-page)
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/yourusername/axora)
 
 ## License
 
