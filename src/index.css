@@ -1,0 +1,135 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+@layer base {
+  :root {
+    /* Light mode variables */
+    --background: 60 30% 96%; /* #f7f6f1 */
+    --foreground: 215 25% 27%; /* Darker text for better contrast */
+    --primary: 43 96% 56%; /* Gold - #f5c935 */
+    --primary-foreground: 220 40% 13%;
+    --secondary: 158 30% 40%; /* Green - #4a7c6a */
+    --secondary-foreground: 60 30% 96%;
+    --accent: 158 30% 40%;
+    --accent-foreground: 60 30% 96%;
+    --highlight-green: 158 30% 40%;
+    --highlight-blue: 217 91% 60%;
+    --border: 214 32% 91%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    /* Dark mode variables */
+    --background: 220 40% 13%; /* #121c2b - Softer dark background */
+    --foreground: 60 30% 96%;
+    --primary: 43 96% 56%; /* Gold - #f5c935 */
+    --primary-foreground: 220 40% 13%;
+    --secondary: 158 30% 40%; /* Green - #4a7c6a */
+    --secondary-foreground: 60 30% 96%;
+    --accent: 158 30% 40%;
+    --accent-foreground: 60 30% 96%;
+    --highlight-green: 158 30% 40%;
+    --highlight-blue: 217 91% 60%;
+    --border: 216 34% 17%;
+    --radius: 0.5rem;
+  }
+}
+
+body {
+  @apply bg-background text-foreground transition-colors;
+  font-family: 'Inter', sans-serif;
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-secondary/20;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-secondary/50 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-secondary/70;
+}
+
+/* Smooth animations */
+* {
+  transition-property: transform, opacity, background-color, border-color, color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+/* Glassmorphism effect */
+.glass {
+  @apply backdrop-blur-md bg-white/10 border border-white/20;
+}
+
+.dark .glass {
+  @apply backdrop-blur-md bg-black/20 border border-white/10;
+}
+
+/* Gradient text animation */
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.gradient-text {
+  background: linear-gradient(-45deg, #a855f7, #ec4899, #3b82f6, #8b5cf6);
+  background-size: 400% 400%;
+  animation: gradient-shift 3s ease infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Floating animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Pulse animation for buttons */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(168, 85, 247, 0.8);
+  }
+}
+
+.pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Text highlighter styles */
+.text-highlighter-green {
+  @apply bg-highlight-green/20 text-highlight-green px-2 py-1 rounded;
+}
+
+.text-highlighter-blue {
+  @apply bg-highlight-blue/20 text-highlight-blue px-2 py-1 rounded;
+}
