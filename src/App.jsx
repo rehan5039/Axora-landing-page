@@ -1,15 +1,25 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet';
 import { Play, Star, Users, Clock, Heart, Download, Smartphone, Globe, X } from 'lucide-react';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { MobileMenu } from '@/components/ui/MobileMenu';
+import { UnderDevelopment } from '@/components/UnderDevelopment';
 import { useTheme } from '@/lib/utils.jsx';
 
 function App() {
   const { theme } = useTheme();
   const [showDemo, setShowDemo] = useState(false);
+  
+  // Prevent scrolling on the home page due to under development overlay
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, []);
   
   // Function to handle Start Meditating button click
   const handleStartMeditating = () => {
@@ -424,6 +434,9 @@ function App() {
             </div>
           </div>
         </footer>
+        
+        {/* Under Development Overlay */}
+        <UnderDevelopment />
       </div>
     </>
   );
