@@ -1,25 +1,15 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet';
 import { Play, Star, Users, Clock, Heart, Download, Smartphone, Globe, X } from 'lucide-react';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { MobileMenu } from '@/components/ui/MobileMenu';
-import { UnderDevelopment } from '@/components/UnderDevelopment';
 import { useTheme } from '@/lib/utils.jsx';
 
 function App() {
   const { theme } = useTheme();
   const [showDemo, setShowDemo] = useState(false);
-  
-  // Prevent scrolling on the home page due to under development overlay
-  useEffect(() => {
-    document.body.style.overflow = 'hidden';
-    
-    return () => {
-      document.body.style.overflow = 'auto';
-    };
-  }, []);
   
   // Function to handle Start Meditating button click
   const handleStartMeditating = () => {
@@ -70,21 +60,22 @@ function App() {
 
   const testimonials = [
     {
-      name: "Sarah Chen",
-      text: "Axora transformed my daily routine. I'm calmer, more focused, and genuinely happier.",
+      name: "Fuzail Sayyed",
+      text: "ماشاءاللہ, this app is amazing! It's perfect for staying regular and focused in meditation. Highly recommended for peace and positivity.",
       rating: 5
     },
     {
-      name: "Michael Rodriguez",
-      text: "The guided meditations are perfect for beginners. I've been using it for 6 months now!",
-      rating: 5
+      name: "Owais Mistry",
+      text: "Great app, really enjoying it for the past few days! Just a small suggestion—adding a profile management feature would make it even better.",
+      rating: 4
     },
     {
-      name: "Emma Thompson",
-      text: "Beautiful interface and amazing content. This app is a game-changer for stress relief.",
-      rating: 5
+      name: "Rehan Shaikh",
+      text: "The app is helpful but needs improvement. Some meditation content is good, but many sections are either empty or have very limited resources. Please add more quality content and app polish the overall experience.",
+      rating: 3
     }
   ];
+  
 
   return (
     <>
@@ -187,9 +178,9 @@ function App() {
                   <span className="font-semibold">4.9</span>
                 </div>
                 <div className="w-1 h-1 bg-foreground/30 rounded-full"></div>
-                <span>Over 1M+ Downloads</span>
+                <span>Over 20+ Downloads</span>
                 <div className="w-1 h-1 bg-foreground/30 rounded-full"></div>
-                <span>Featured by RR</span>
+                <span>Featured by Risewell</span>
               </motion.div>
             </motion.div>
           </div>
@@ -315,8 +306,8 @@ function App() {
               className="text-center mb-16"
             >
               <h2 className="text-4xl md:text-5xl font-bold mb-6">
-                Loved by Millions
-                <span className="block text-primary">Worldwide</span>
+                Unfiltered User
+                <span className="block text-primary">Reviews</span>
               </h2>
             </motion.div>
 
@@ -434,9 +425,6 @@ function App() {
             </div>
           </div>
         </footer>
-        
-        {/* Under Development Overlay */}
-        <UnderDevelopment />
       </div>
     </>
   );
