@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useTheme } from '@/lib/utils.jsx';
+import { useTranslation } from '@/hooks/useTranslation';
 
 export function MobileMenu() {
   const { theme } = useTheme();
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -52,28 +54,28 @@ export function MobileMenu() {
                 className="py-2 px-4 hover:bg-primary/10 rounded-md"
                 onClick={() => setIsOpen(false)}
               >
-                Features
+                {t('nav.features')}
               </Link>
               <Link 
                 to="/#testimonials" 
                 className="py-2 px-4 hover:bg-primary/10 rounded-md"
                 onClick={() => setIsOpen(false)}
               >
-                Reviews
+                {t('nav.reviews')}
               </Link>
               <Link 
                 to="/blog" 
                 className="py-2 px-4 hover:bg-primary/10 rounded-md"
                 onClick={() => setIsOpen(false)}
               >
-                Blog
+                {t('nav.blog')}
               </Link>
               <Link 
                 to="/#download" 
                 className="py-2 px-4 hover:bg-primary/10 rounded-md"
                 onClick={() => setIsOpen(false)}
               >
-                Download
+                {t('nav.download')}
               </Link>
               <div className="border-t border-border my-2"></div>
               <Link 
@@ -81,28 +83,28 @@ export function MobileMenu() {
                 className="py-2 px-4 hover:bg-primary/10 rounded-md"
                 onClick={() => setIsOpen(false)}
               >
-                Support
+                {t('nav.support')}
               </Link>
               <Link 
                 to="/contact" 
                 className="py-2 px-4 hover:bg-primary/10 rounded-md"
                 onClick={() => setIsOpen(false)}
               >
-                Contact
+                {t('nav.contact')}
               </Link>
               <Link 
                 to="/privacy-policy" 
                 className="py-2 px-4 hover:bg-primary/10 rounded-md"
                 onClick={() => setIsOpen(false)}
               >
-                Privacy Policy
+                {t('nav.privacyPolicy')}
               </Link>
               <Link 
                 to="/terms-of-service" 
                 className="py-2 px-4 hover:bg-primary/10 rounded-md"
                 onClick={() => setIsOpen(false)}
               >
-                Terms of Service
+                {t('nav.termsOfService')}
               </Link>
             </div>
             
@@ -130,7 +132,7 @@ export function MobileMenu() {
                   theme === 'dark' ? 'bg-primary text-primary-foreground' : 'bg-secondary text-secondary-foreground'
                 }`}
               >
-                Start Meditating
+                {t('hero.startMeditating')}
               </button>
             </div>
           </div>

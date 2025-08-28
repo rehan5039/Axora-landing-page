@@ -40,8 +40,32 @@ export default function BlogPost() {
   return (
     <>
       <Helmet>
-        <title>{post.title} - Axora Blog</title>
-        <meta name="description" content={post.excerpt} />
+        <title>{post?.seo?.title || `${post.title} - Axora Blog`}</title>
+        <meta name="description" content={post?.seo?.description || post.excerpt} />
+        {post?.keywords && (
+          <meta name="keywords" content={Array.isArray(post.keywords) ? post.keywords.join(', ') : post.keywords} />
+        )}
+        {post?.seo?.canonical && (
+          <link rel="canonical" href={post.seo.canonical} />
+        )}
+        {/* Open Graph / Twitter */}
+        <meta property="og:title" content={post?.seo?.title || post.title} />
+        <meta property="og:description" content={post?.seo?.description || post.excerpt} />
+        <meta property="og:type" content="article" />
+        <meta property="og:image" content={post?.seo?.ogImage || post.image} />
+        {post?.seo?.canonical && (
+          <meta property="og:url" content={post.seo.canonical} />
+        )}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={post?.seo?.title || post.title} />
+        <meta name="twitter:description" content={post?.seo?.description || post.excerpt} />
+        <meta name="twitter:image" content={post?.seo?.ogImage || post.image} />
+        {/* JSON-LD Schema.org Article */}
+        {post?.seo?.jsonLd && (
+          <script type="application/ld+json">
+            {JSON.stringify(post.seo.jsonLd)}
+          </script>
+        )}
       </Helmet>
       
       <div className="min-h-screen bg-background text-foreground">

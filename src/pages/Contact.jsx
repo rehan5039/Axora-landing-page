@@ -203,8 +203,8 @@ export default function Contact() {
                       <Mail className={`w-5 h-5 mt-1 ${theme === 'dark' ? 'text-primary' : 'text-secondary'}`} />
                       <div>
                         <p className="font-medium">Email</p>
-                        <a href="mailto:axora.app@gmail.com" className="opacity-90 hover:underline">
-                          axora.app@gmail.com
+                        <a href="mailto:support@axora.life" className="opacity-90 hover:underline">
+                          support@axora.life
                         </a>
                       </div>
                     </div>

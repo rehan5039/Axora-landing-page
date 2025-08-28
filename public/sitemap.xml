@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Update baseUrl below if your canonical domain differs -->
+  <!-- baseUrl: https://app.axora.life -->
+  <url>
+    <loc>https://axora.life/</loc>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <lastmod>2025-08-28</lastmod>
+  </url>
+  <url>
+    <loc>https://axora.life/privacy-policy</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <lastmod>2025-08-28</lastmod>
+  </url>
+  <url>
+    <loc>https://axora.life/terms-of-service</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <lastmod>2025-08-28</lastmod>
+  </url>
+  <url>
+    <loc>https://axora.life/support</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+    <lastmod>2025-08-28</lastmod>
+  </url>
+  <url>
+    <loc>https://axora.life/contact</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <lastmod>2025-08-28</lastmod>
+  </url>
+  <url>
+    <loc>https://axora.life/blog</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2025-08-28</lastmod>
+  </url>
+  <url>
+    <loc>https://axora.life/blog/1</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <lastmod>2025-08-28</lastmod>
+  </url>
+  <url>
+    <loc>https://app.axora.life/</loc>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <lastmod>2025-08-28</lastmod>
+  </url>
+</urlset>

@@ -4,11 +4,14 @@ import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet';
 import { Play, Star, Users, Clock, Heart, Download, Smartphone, Globe, X } from 'lucide-react';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
+import { LanguageToggle } from '@/components/ui/LanguageToggle';
 import { MobileMenu } from '@/components/ui/MobileMenu';
 import { useTheme } from '@/lib/utils.jsx';
+import { useTranslation } from '@/hooks/useTranslation';
 
 function App() {
   const { theme } = useTheme();
+  const { t } = useTranslation();
   const [showDemo, setShowDemo] = useState(false);
   
   // Function to handle Start Meditating button click
@@ -22,11 +25,11 @@ function App() {
         window.open('https://play.google.com/store/apps/details?id=com.rr.axora.axora', '_blank');
       } else {
         // For other mobile devices, open web app
-        window.open('https://axora-we.web.app/', '_blank');
+        window.open('https://axora.life/', '_blank');
       }
     } else {
       // If on desktop, open web app
-      window.open('https://axora-we.web.app/', '_blank');
+      window.open('https://axora.life/', '_blank');
     }
   };
   
@@ -43,18 +46,18 @@ function App() {
   const features = [
     {
       icon: <Clock className="w-8 h-8" />,
-      title: "Guided Sessions",
-      description: "From 3-minute breathing exercises to hour-long deep meditations"
+      title: t('features.guidedSessions.title'),
+      description: t('features.guidedSessions.description')
     },
     {
       icon: <Heart className="w-8 h-8" />,
-      title: "Mindfulness Training",
-      description: "Build lasting habits with our progressive mindfulness programs"
+      title: t('features.mindfulnessTraining.title'),
+      description: t('features.mindfulnessTraining.description')
     },
     {
       icon: <Users className="w-8 h-8" />,
-      title: "Community Support",
-      description: "Connect with fellow meditators on your journey to inner peace"
+      title: t('features.communitySupport.title'),
+      description: t('features.communitySupport.description')
     }
   ];
 
@@ -105,11 +108,12 @@ function App() {
                 transition={{ duration: 0.6, delay: 0.2 }}
                 className="hidden md:flex space-x-8"
               >
-                <a href="#features" className="hover:text-primary transition-colors">Features</a>
-                <a href="#testimonials" className="hover:text-primary transition-colors">Reviews</a>
-                <a href="/blog" className="hover:text-primary transition-colors">Blog</a>
-                <a href="#download" className="hover:text-primary transition-colors">Download</a>
+                <a href="#features" className="hover:text-primary transition-colors">{t('nav.features')}</a>
+                <a href="#testimonials" className="hover:text-primary transition-colors">{t('nav.reviews')}</a>
+                <a href="/blog" className="hover:text-primary transition-colors">{t('nav.blog')}</a>
+                <a href="#download" className="hover:text-primary transition-colors">{t('nav.download')}</a>
               </motion.div>
+              <LanguageToggle />
               <ThemeToggle />
               <MobileMenu />
             </div>
@@ -126,15 +130,14 @@ function App() {
               className="space-y-8"
             >
               <h1 className="text-5xl md:text-7xl font-bold leading-tight">
-                Find Your
+                {t('hero.title')}
                 <span className="block text-primary">
-                  Inner Peace
+                  {t('hero.titleHighlight')}
                 </span>
               </h1>
               
               <p className="text-xl md:text-2xl opacity-80 max-w-3xl mx-auto leading-relaxed">
-                Transform your life with guided meditation sessions designed to reduce stress, 
-                improve focus, and bring lasting calm to your daily routine.
+                {t('hero.subtitle')}
               </p>
 
               <motion.div
@@ -151,7 +154,7 @@ function App() {
                 >
                   <div className="flex items-center space-x-2">
                     <Play className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                    <span>Start Meditating</span>
+                    <span>{t('hero.startMeditating')}</span>
                   </div>
                 </button>
                 
@@ -163,7 +166,7 @@ function App() {
                       : 'border-secondary/30 text-secondary hover:bg-secondary/10'
                   }`}
                 >
-                  Watch Demo
+                  {t('hero.watchDemo')}
                 </button>
               </motion.div>
 
@@ -175,12 +178,12 @@ function App() {
               >
                 <div className="flex items-center space-x-1">
                   <Star className="w-5 h-5 fill-primary text-primary" />
-                  <span className="font-semibold">4.9</span>
+                  <span className="font-semibold">{t('hero.rating')}</span>
                 </div>
                 <div className="w-1 h-1 bg-foreground/30 rounded-full"></div>
-                <span>Over 20+ Downloads</span>
+                <span>{t('hero.downloads')}</span>
                 <div className="w-1 h-1 bg-foreground/30 rounded-full"></div>
-                <span>Featured by Risewell</span>
+                <span>{t('hero.featured')}</span>
               </motion.div>
             </motion.div>
           </div>
@@ -239,10 +242,9 @@ function App() {
                 ></iframe>
               </div>
               <div className="p-6">
-                <h3 className="text-2xl font-bold mb-2">Axora Meditation App</h3>
+                <h3 className="text-2xl font-bold mb-2">{t('demo.title')}</h3>
                 <p className="opacity-80">
-                  Experience the calming interface and guided sessions of our meditation app. 
-                  This demo shows the key features that help you build a consistent meditation practice.
+                  {t('demo.description')}
                 </p>
               </div>
             </div>
@@ -262,11 +264,11 @@ function App() {
               className="text-center mb-16"
             >
               <h2 className="text-4xl md:text-5xl font-bold mb-6">
-                Everything You Need for
-                <span className="block text-primary">Mindful Living</span>
+                {t('features.title')}
+                <span className="block text-primary">{t('features.titleHighlight')}</span>
               </h2>
               <p className="text-xl opacity-80 max-w-2xl mx-auto">
-                Discover powerful tools and techniques to cultivate peace, clarity, and well-being in your everyday life.
+                {t('features.subtitle')}
               </p>
             </motion.div>
 
@@ -306,8 +308,8 @@ function App() {
               className="text-center mb-16"
             >
               <h2 className="text-4xl md:text-5xl font-bold mb-6">
-                Unfiltered User
-                <span className="block text-primary">Reviews</span>
+                {t('testimonials.title')}
+                <span className="block text-primary">{t('testimonials.titleHighlight')}</span>
               </h2>
             </motion.div>
 
@@ -353,12 +355,12 @@ function App() {
               className="space-y-8"
             >
               <h2 className="text-4xl md:text-5xl font-bold">
-                Start Your Journey to
-                <span className="block text-primary">Inner Peace Today</span>
+                {t('cta.title')}
+                <span className="block text-primary">{t('cta.titleHighlight')}</span>
               </h2>
               
               <p className="text-xl opacity-80 max-w-2xl mx-auto">
-                Join millions who have transformed their lives with Axora. Download now and get your first week free.
+                {t('cta.subtitle')}
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -373,11 +375,11 @@ function App() {
                   }`}
                 >
                   <Smartphone className="w-5 h-5" />
-                  <span>Android App</span>
+                  <span>{t('cta.androidApp')}</span>
                 </motion.a>
                 
                 <motion.a
-                  href="https://axora-we.web.app/"
+                  href="https://axora.life/"
                   target="_blank"
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.05 }}
@@ -389,16 +391,16 @@ function App() {
                   }`}
                 >
                   <Globe className="w-5 h-5" />
-                  <span>Web App</span>
+                  <span>{t('cta.webApp')}</span>
                 </motion.a>
               </div>
 
               <p className="text-sm opacity-70 flex items-center justify-center space-x-2">
-                <span>Available on</span>
+                <span>{t('cta.availableOn')}</span>
                 <Smartphone className="w-4 h-4" />
-                <span>Android and</span>
+                <span>{t('cta.android')}</span>
                 <Globe className="w-4 h-4" />
-                <span>Web</span>
+                <span>{t('cta.web')}</span>
               </p>
             </motion.div>
           </div>
@@ -414,14 +416,14 @@ function App() {
               <span>xora</span>
             </div>
             <p className={`mb-6 ${theme === 'dark' ? 'text-primary/80' : 'text-secondary/80'}`}>
-              Bringing peace and mindfulness to your daily life
+              {t('footer.tagline')}
             </p>
             <div className="flex flex-wrap justify-center gap-4 text-sm opacity-70">
-              <a href="/" className="hover:text-primary transition-colors">Home</a>
-              <a href="/privacy-policy" className="hover:text-primary transition-colors">Privacy Policy</a>
-              <a href="/terms-of-service" className="hover:text-primary transition-colors">Terms of Service</a>
-              <a href="/support" className="hover:text-primary transition-colors">Support</a>
-              <a href="/contact" className="hover:text-primary transition-colors">Contact</a>
+              <a href="/" className="hover:text-primary transition-colors">{t('footer.home')}</a>
+              <a href="/privacy-policy" className="hover:text-primary transition-colors">{t('nav.privacyPolicy')}</a>
+              <a href="/terms-of-service" className="hover:text-primary transition-colors">{t('nav.termsOfService')}</a>
+              <a href="/support" className="hover:text-primary transition-colors">{t('nav.support')}</a>
+              <a href="/contact" className="hover:text-primary transition-colors">{t('nav.contact')}</a>
             </div>
           </div>
         </footer>

@@ -1,24 +1,8 @@
-import MeditationTipsForBeginners from './MeditationTipsForBeginners';
-import ScienceBehindMindfulness from './ScienceBehindMindfulness';
-import BoxBreathingReducesStress from './BoxBreathingReducesStress';
-import GuidedVsUnguided from './GuidedVsUnguided';
-import DailyHabitsForInnerPeace from './DailyHabitsForInnerPeace';
-import BodyScanMeditation from './BodyScanMeditation';
-import MindfulEating from './MindfulEating';
-import FourSevenEightBreathing from './FourSevenEightBreathing';
-import CreatingMeditationSpace from './CreatingMeditationSpace';
+import AxoraMeditationPartner from './AxoraMeditationPartner';
 
-// Array of all blog posts
+// Array of all blog posts (currently only the Hinglish Axora article)
 const allBlogPosts = [
-  MeditationTipsForBeginners,
-  ScienceBehindMindfulness,
-  BoxBreathingReducesStress,
-  GuidedVsUnguided,
-  DailyHabitsForInnerPeace,
-  BodyScanMeditation,
-  MindfulEating,
-  FourSevenEightBreathing,
-  CreatingMeditationSpace
+  AxoraMeditationPartner
 ];
 
 // Function to get a blog post by ID

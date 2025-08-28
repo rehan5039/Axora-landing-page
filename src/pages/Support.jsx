@@ -171,7 +171,7 @@ export default function Support() {
               </p>
               <div className="flex justify-center">
                 <a 
-                  href="mailto:axora.app@gmail.com"
+                  href="mailto:support@axora.life"
                   className={`flex items-center space-x-2 px-6 py-3 rounded-full ${
                     theme === 'dark' 
                       ? 'bg-primary text-primary-foreground' 
