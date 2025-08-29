@@ -58,16 +58,24 @@ function loadGA() {
   if (typeof window === 'undefined') return;
   ensureGtagStub();
   if (document.getElementById('ga-gtag')) return;
+  
   const s = document.createElement('script');
   s.id = 'ga-gtag';
   s.async = true;
   s.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
+  s.onerror = () => {
+    console.warn('GA script failed to load');
+  };
   s.onload = () => {
-    window.gtag('js', new Date());
-    // Disable automatic page_view to avoid double-counting; we send manually
-    window.gtag('config', GA_MEASUREMENT_ID, { send_page_view: false });
-    // Ensure initial page_view after GA is ready
-    sendPageView(window.location.pathname + window.location.search);
+    try {
+      window.gtag('js', new Date());
+      // Disable automatic page_view to avoid double-counting; we send manually
+      window.gtag('config', GA_MEASUREMENT_ID, { send_page_view: false });
+      // Ensure initial page_view after GA is ready
+      sendPageView(window.location.pathname + window.location.search);
+    } catch (error) {
+      console.warn('GA initialization error:', error);
+    }
   };
   document.head.appendChild(s);
 }
@@ -75,14 +83,18 @@ function loadGA() {
 function sendPageView(path) {
   if (typeof window === 'undefined') return;
   ensureGtagStub();
-  window.gtag('config', GA_MEASUREMENT_ID, { page_path: path });
+  try {
+    window.gtag('config', GA_MEASUREMENT_ID, { page_path: path });
+  } catch (error) {
+    console.warn('GA page view error:', error);
+  }
 }
 
 // Initial page_view (queued if GA not yet loaded)
 sendPageView(window.location.pathname + window.location.search);
 
-// Load GA when browser is idle (does not block LCP)
-if (typeof window !== 'undefined') {
+// Load GA when browser is idle (does not block LCP) - only in production
+if (typeof window !== 'undefined' && import.meta.env.PROD) {
   if ('requestIdleCallback' in window) {
     window.requestIdleCallback(() => loadGA(), { timeout: 2000 });
   } else {
@@ -94,8 +106,10 @@ if (typeof window !== 'undefined') {
 router.subscribe(() => {
   const { location } = router.state;
   if (location) {
-    // Ensure GA is loaded soon after first navigation as well
-    loadGA();
+    // Ensure GA is loaded soon after first navigation as well (only in production)
+    if (import.meta.env.PROD) {
+      loadGA();
+    }
     sendPageView(location.pathname + location.search);
   }
 });
