@@ -44,6 +44,27 @@ const router = createBrowserRouter([
   }
 ]);
 
+// GA4 SPA page_view tracking (requires gtag snippet in index.html)
+const GA_MEASUREMENT_ID = 'G-763ZXG30KL';
+function sendPageView(path) {
+  if (typeof window === 'undefined') return;
+  const gtag = window.gtag; // defined by gtag.js in index.html
+  if (typeof gtag === 'function') {
+    gtag('config', GA_MEASUREMENT_ID, { page_path: path });
+  }
+}
+
+// Initial page_view
+sendPageView(window.location.pathname + window.location.search);
+
+// Track subsequent route changes
+router.subscribe(() => {
+  const { location } = router.state;
+  if (location) {
+    sendPageView(location.pathname + location.search);
+  }
+});
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <ThemeProvider>
@@ -53,3 +74,4 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     </ThemeProvider>
   </React.StrictMode>
 );
+
