@@ -55,7 +55,9 @@ function ensureGtagStub() {
 }
 
 function loadGA() {
-  if (typeof window === 'undefined') return;
+  // Skip GA completely in development
+  if (typeof window === 'undefined' || !import.meta.env.PROD) return;
+  
   ensureGtagStub();
   if (document.getElementById('ga-gtag')) return;
   
@@ -90,8 +92,23 @@ function sendPageView(path) {
   }
 }
 
-// Initial page_view (queued if GA not yet loaded)
-sendPageView(window.location.pathname + window.location.search);
+// Remove any existing GA scripts in development
+if (typeof window !== 'undefined' && !import.meta.env.PROD) {
+  // Remove any existing GA scripts
+  const existingGAScripts = document.querySelectorAll('script[src*="googletagmanager.com"]');
+  existingGAScripts.forEach(script => script.remove());
+  
+  // Clear dataLayer
+  window.dataLayer = [];
+  
+  // Override gtag to do nothing in development
+  window.gtag = function() {
+    console.log('GA disabled in development mode');
+  };
+} else {
+  // Initial page_view (queued if GA not yet loaded) - only in production
+  sendPageView(window.location.pathname + window.location.search);
+}
 
 // Load GA when browser is idle (does not block LCP) - only in production
 if (typeof window !== 'undefined' && import.meta.env.PROD) {
