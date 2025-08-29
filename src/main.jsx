@@ -1,14 +1,14 @@
 
-import React, { Suspense, lazy } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from '@/App';
-const PrivacyPolicy = lazy(() => import('@/pages/PrivacyPolicy'));
-const TermsOfService = lazy(() => import('@/pages/TermsOfService'));
-const Support = lazy(() => import('@/pages/Support'));
-const Contact = lazy(() => import('@/pages/Contact'));
-const Blog = lazy(() => import('@/pages/Blog'));
-const BlogPost = lazy(() => import('@/pages/BlogPost'));
+import PrivacyPolicy from '@/pages/PrivacyPolicy';
+import TermsOfService from '@/pages/TermsOfService';
+import Support from '@/pages/Support';
+import Contact from '@/pages/Contact';
+import Blog from '@/pages/Blog';
+import BlogPost from '@/pages/BlogPost';
 import '@/index.css';
 import { ThemeProvider } from '@/lib/utils.jsx';
 import { LanguageProvider } from '@/contexts/LanguageContext';
@@ -44,89 +44,23 @@ const router = createBrowserRouter([
   }
 ]);
 
-// GA4 SPA page_view tracking without blocking initial load
+// GA4 SPA page_view tracking (requires gtag snippet in index.html)
 const GA_MEASUREMENT_ID = 'G-763ZXG30KL';
-function ensureGtagStub() {
-  if (typeof window === 'undefined') return;
-  window.dataLayer = window.dataLayer || [];
-  if (typeof window.gtag !== 'function') {
-    window.gtag = function () { window.dataLayer.push(arguments); };
-  }
-}
-
-function loadGA() {
-  // Skip GA completely in development
-  if (typeof window === 'undefined' || !import.meta.env.PROD) return;
-  
-  ensureGtagStub();
-  if (document.getElementById('ga-gtag')) return;
-  
-  const s = document.createElement('script');
-  s.id = 'ga-gtag';
-  s.async = true;
-  s.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
-  s.onerror = () => {
-    console.warn('GA script failed to load');
-  };
-  s.onload = () => {
-    try {
-      window.gtag('js', new Date());
-      // Disable automatic page_view to avoid double-counting; we send manually
-      window.gtag('config', GA_MEASUREMENT_ID, { send_page_view: false });
-      // Ensure initial page_view after GA is ready
-      sendPageView(window.location.pathname + window.location.search);
-    } catch (error) {
-      console.warn('GA initialization error:', error);
-    }
-  };
-  document.head.appendChild(s);
-}
-
 function sendPageView(path) {
   if (typeof window === 'undefined') return;
-  ensureGtagStub();
-  try {
-    window.gtag('config', GA_MEASUREMENT_ID, { page_path: path });
-  } catch (error) {
-    console.warn('GA page view error:', error);
+  const gtag = window.gtag; // defined by gtag.js in index.html
+  if (typeof gtag === 'function') {
+    gtag('config', GA_MEASUREMENT_ID, { page_path: path });
   }
 }
 
-// Remove any existing GA scripts in development
-if (typeof window !== 'undefined' && !import.meta.env.PROD) {
-  // Remove any existing GA scripts
-  const existingGAScripts = document.querySelectorAll('script[src*="googletagmanager.com"]');
-  existingGAScripts.forEach(script => script.remove());
-  
-  // Clear dataLayer
-  window.dataLayer = [];
-  
-  // Override gtag to do nothing in development
-  window.gtag = function() {
-    console.log('GA disabled in development mode');
-  };
-} else {
-  // Initial page_view (queued if GA not yet loaded) - only in production
-  sendPageView(window.location.pathname + window.location.search);
-}
-
-// Load GA when browser is idle (does not block LCP) - only in production
-if (typeof window !== 'undefined' && import.meta.env.PROD) {
-  if ('requestIdleCallback' in window) {
-    window.requestIdleCallback(() => loadGA(), { timeout: 2000 });
-  } else {
-    setTimeout(loadGA, 2000);
-  }
-}
+// Initial page_view
+sendPageView(window.location.pathname + window.location.search);
 
 // Track subsequent route changes
 router.subscribe(() => {
   const { location } = router.state;
   if (location) {
-    // Ensure GA is loaded soon after first navigation as well (only in production)
-    if (import.meta.env.PROD) {
-      loadGA();
-    }
     sendPageView(location.pathname + location.search);
   }
 });
@@ -135,9 +69,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <ThemeProvider>
       <LanguageProvider>
-        <Suspense fallback={<div />}> 
-          <RouterProvider router={router} />
-        </Suspense>
+        <RouterProvider router={router} />
       </LanguageProvider>
     </ThemeProvider>
   </React.StrictMode>

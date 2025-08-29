@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { Helmet } from 'react-helmet';
 import { Play, Star, Users, Clock, Heart, Download, Smartphone, Globe, X } from 'lucide-react';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { LanguageToggle } from '@/components/ui/LanguageToggle';
@@ -81,6 +82,10 @@ function App() {
 
   return (
     <>
+      <Helmet>
+        <title>Axora - Find Your Inner Peace Through Meditation</title>
+        <meta name="description" content="Transform your life with Axora's guided meditation app. Reduce stress, improve focus, and discover inner peace with our expert-led sessions." />
+      </Helmet>
       
       <div className="min-h-screen bg-background text-foreground overflow-hidden">
         {/* Navigation */}
